@@ -26,6 +26,15 @@ namespace Demiplane
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequiredLength = 10;
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+            });
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
